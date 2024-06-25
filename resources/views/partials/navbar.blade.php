@@ -1,4 +1,4 @@
-<nav class="fixed-top navbar navbar-expand-lg navbar-light bg-primary">
+<nav class="fixed-top navbar navbar-expand-lg navbar-light navbar-bg">
   <div class="container">
       <a class="navbar-brand text-white" href="/"><b>Sistem Informasi Manajemen</b></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

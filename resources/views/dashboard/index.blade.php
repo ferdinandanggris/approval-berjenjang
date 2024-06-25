@@ -98,7 +98,7 @@
                                       <td>
                                           <div class="btn-group btn-sm mb-1" role="group" aria-label="Basic example">
                                               <form action="/leave_application/{{ $leaveApplication->id }}/approve"
-                                                  class="btn-group" method="post">
+                                                  class="btn-group m-0 p-0" method="post">
                                                   @csrf
                                                   <button id="btn-reject" type="submit" id="approve" name="submit"
                                                       @php
@@ -109,10 +109,10 @@
                                               }
                                               } @endphp
                                                       onclick="return confirm('Are you sure?')"
-                                                      class="btn btn-sm btn-success"><i class="bi bi-check-lg"></i></button>
+                                                      class="btn btn-sm btn-success rounded-start"><i class="bi bi-check-lg"></i></button>
                                               </form>
                                               <form action="/leave_application/{{ $leaveApplication->id }}/reject"
-                                                  method="post" class="btn-group">
+                                                  method="post" class="btn-group m-0 p-0">
                                                   @csrf
                                                   <button name="submit" onclick="return confirm('Are you sure?')"
                                                       @php
@@ -122,7 +122,7 @@
                                                 echo 'disabled';
                                               }
                                               } @endphp
-                                                      type="submit" class="btn btn-sm btn-danger"><i
+                                                      type="submit" class="btn btn-sm btn-danger rounded-end"><i
                                                           class="bi bi-x"></i></button>
                                               </form>
                                           </div>
@@ -212,7 +212,7 @@
                                           <td>
                                               <div class="btn-group btn-sm mb-1" role="group" aria-label="Basic example">
                                                   <form action="/travel_authorization/{{ $travelAuthorization->id }}/approve"
-                                                      class="btn-group" method="post">
+                                                      class="btn-group m-0 p-0" method="post">
                                                       @csrf
                                                       <button id="btn-reject" type="submit" id="approve" name="submit"
                                                           @php
@@ -230,10 +230,10 @@
                                               }
                                               } @endphp
                                                           onclick="return confirm('Are you sure?')"
-                                                          class="btn btn-sm btn-success"><i class="bi bi-check-lg"></i></button>
+                                                          class="btn btn-sm btn-success rounded-start"><i class="bi bi-check-lg"></i></button>
                                                   </form>
                                                   <form action="/travel_authorization/{{ $travelAuthorization->id }}/reject"
-                                                      method="post" class="btn-group">
+                                                      method="post" class="btn-group m-0 p-0">
                                                       @csrf
                                                       <button name="submit" onclick="return confirm('Are you sure?')"
                                                           @php
@@ -250,7 +250,7 @@
                                                   echo 'disabled';
                                               }
                                               } @endphp
-                                                          type="submit" class="btn btn-sm btn-danger"><i
+                                                          type="submit" class="btn btn-sm btn-danger rounded-end    "><i
                                                               class="bi bi-x"></i></button>
                                                   </form>
                                               </div>

@@ -15,6 +15,44 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
         integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+         .navbar-bg{
+            background: rgb(2, 0, 36);
+            background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 39%, rgba(0, 212, 255, 1) 100%);
+        }
+        body{
+            background: #e6eef0;
+        }
+
+        .card {
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(2.5px);
+            -webkit-backdrop-filter: blur(2.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .btn-primary{
+          background: rgba(9, 9, 121, 1) 39% !important;
+          border-color: #0c125e;
+        }
+
+        .btn-primary:focus{
+          background: rgba(9, 9, 121, 1) 39% !important;
+          border-color: #0c125e;
+        }
+
+        .btn-success{
+            background: #30ac72 !important;
+            border-color: #30ac72;
+        }
+
+        btn-success:focus{
+            background: #30ac72 !important;
+            border-color: #30ac72;
+        }
+        
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
         integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>

@@ -121,7 +121,7 @@
                                                     aria-label="Basic example">
                                                     <form
                                                         action="/travel_authorization/{{ $travelAuthorization->id }}/approve"
-                                                        class="btn-group" method="post">
+                                                        class="btn-group m-0 p-0" method="post">
                                                         @csrf
                                                         <button id="btn-reject" type="submit" id="approve" name="submit"
                                                             @php
@@ -139,12 +139,12 @@ if (($travelAuthorization->is_approve_officer == 0 || $travelAuthorization->is_a
                                                 }
                                                 } @endphp
                                                             onclick="return confirm('Are you sure?')"
-                                                            class="btn btn-sm btn-success"><i
+                                                            class="btn btn-sm btn-success rounded-start"><i
                                                                 class="bi bi-check-lg"></i></button>
                                                     </form>
                                                     <form
                                                         action="/travel_authorization/{{ $travelAuthorization->id }}/reject"
-                                                        method="post" class="btn-group">
+                                                        method="post" class="btn-group m-0 p-0">
                                                         @csrf
                                                         <button name="submit" onclick="return confirm('Are you sure?')"
                                                             @php
@@ -161,7 +161,7 @@ if (($travelAuthorization->is_approve_officer == 0 || $travelAuthorization->is_a
                                                     echo 'disabled';
                                                 }
                                                 } @endphp
-                                                            type="submit" class="btn btn-sm btn-danger"><i
+                                                            type="submit" class="btn btn-sm btn-danger rounded-end"><i
                                                                 class="bi bi-x"></i></button>
                                                     </form>
                                                 </div>
