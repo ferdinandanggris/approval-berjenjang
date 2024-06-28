@@ -12,10 +12,14 @@
                         <div class="mb-3 form-group row">
                             <label for="name" class="col-form-label col-sm-2">Name</label>
                             <div class="col-sm-10">
-                                <select class="form-select" aria-label="Default select example" name="user_id" required>
+                                <select class="form-select" aria-label="Default select example" name="user_id" required disabled>
                                     <option selected>Choose User</option>
                                     @foreach ($users as $user)
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @if ($user->id == auth()->user()->id)
+                                            <option selected value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @else
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -23,23 +27,21 @@
                         <div class="mb-3 form-group row">
                             <label for="harga" class="col-form-label col-sm-2">Reason</label>
                             <div class="col-sm-10">
-                              <textarea class="form-control" name="reason" placeholder="Leave a reason here" required id="floatingTextarea"></textarea>
+                                <textarea class="form-control" name="reason" placeholder="Leave a reason here" required id="floatingTextarea"></textarea>
                             </div>
                         </div>
                         <div class="mb-3 form-group row">
                             <label for="kelas" class="col-form-label col-sm-2">Start Date</label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control"
-                                    id="start_date" name="start_date" required>
+                                <input type="date" class="form-control" id="start_date" name="start_date" required>
                             </div>
                         </div>
                         <div class="mb-3 form-group row">
-                          <label for="kelas" class="col-form-label col-sm-2">End Date</label>
-                          <div class="col-sm-10">
-                              <input type="date" class="form-control"
-                                  id="end_date" name="end_date" required>
-                          </div>
-                      </div>
+                            <label for="kelas" class="col-form-label col-sm-2">End Date</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="end_date" name="end_date" required>
+                            </div>
+                        </div>
                         <div class="form-group d-flex justify-content-end gap-2">
                             <div class="mr-2">
                                 <button type="submit" class="btn btn-primary">Simpan</button>

@@ -12,10 +12,14 @@
                         <div class="mb-3 form-group row">
                             <label for="name" class="col-form-label col-sm-2">Name</label>
                             <div class="col-sm-10">
-                                <select class="form-select" aria-label="Default select example" name="user_id" required>
+                                <select class="form-select" aria-label="Default select example" name="user_id" required disabled>
                                     <option selected>Choose User</option>
                                     @foreach ($users as $user)
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @if ($user->id == auth()->user()->id)
+                                            <option selected value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @else
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>

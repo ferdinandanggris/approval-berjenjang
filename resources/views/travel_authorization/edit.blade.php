@@ -13,13 +13,13 @@
                         <div class="mb-3 form-group row">
                             <label for="name" class="col-form-label col-sm-2">Name</label>
                             <div class="col-sm-10">
-                                <select class="form-select" aria-label="Default select example" name="user_id" required>
+                                <select class="form-select" aria-label="Default select example" name="user_id" required disabled>
                                     <option>Choose User</option>
                                     @foreach ($users as $user)
                                         @if ($user->id == $travelAuthorization->user_id)
                                             <option selected value="{{ $user->id }}" selected>{{ $user->name }}</option>
                                         @else
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endif
                                     @endforeach
                                 </select>

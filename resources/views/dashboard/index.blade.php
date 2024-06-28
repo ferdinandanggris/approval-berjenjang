@@ -184,7 +184,7 @@
                                   <th scope="col">Reason</th>
                                   <th scope="col" class="text-center">Date</th>
                                   <th scope="col">Status</th>
-                                  @if (auth()->user()->role == 'hr' || auth()->user()->role == 'finance')
+                                  @if (auth()->user()->role == 'hr' || auth()->user()->role == 'finance' || auth()->user()->role == 'officer')
                                       <th scope="col" data-toggle="tooltip" title="{{ textTooltipTravel() }}">Approval</th>
                                   @endif
                                   <th scope="col">Action</th>
