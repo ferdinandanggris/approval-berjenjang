@@ -10,7 +10,23 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
-
+    const ROLES = [
+        'officer' => [
+            'id' => 'officer',
+            'name' => 'Officer'
+        ],
+        'employee' => [
+            'id' => 'employee',
+            'name' => 'Employee'
+        ],
+        'finance' => [
+            'id'  => 'finance',
+            'name'=> 'Finance'
+        ]
+    ];
+    const ROLE_OFFICER = 'officer';
+    const ROLE_EMPLOYEE = 'employee';
+    const ROLE_FINANCE = 'finance';
     /**
      * The attributes that are mass assignable.
      *

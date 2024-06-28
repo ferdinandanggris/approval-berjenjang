@@ -31,7 +31,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $roles = User::ROLES;
+        return view('user.create', compact('roles'));
     }
 
     /**
@@ -42,7 +43,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required',
+            'role' => 'required'
+        ]);
+
+        $payload = $request->only('name', 'email', 'password', 'role');
+        $payload['password'] = bcrypt($payload['password']);
+        User::create($payload);
+
+        return redirect()->route('user.index')->with('success', 'User created successfully');
     }
 
     /**
@@ -64,7 +76,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $roles = User::ROLES;
+        $user = User::find($id);
+        return view('user.edit', compact('user', 'roles'));
     }
 
     /**
@@ -76,7 +90,17 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$id,
+            'role' => 'required'
+        ]);
+
+        $payload = $request->only('name', 'email', 'role');
+        $user = User::find($id);
+        $user->update($payload);
+
+        return redirect()->route('user.index')->with('success', 'User updated successfully');
     }
 
     /**
@@ -87,7 +111,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::destroy($id);
+        return redirect()->route('user.index')->with('success', 'User deleted successfully');
     }
 
     public function email()

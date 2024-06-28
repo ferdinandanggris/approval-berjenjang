@@ -49,5 +49,11 @@ Route::prefix('travel_authorization')->middleware('auth')->group(function(){
 
 Route::prefix('user')->middleware('auth')->group(function(){
     Route::get('/', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
+    Route::get('/create', [App\Http\Controllers\UserController::class, 'create'])->name('user.create');
+    Route::post('/store', [App\Http\Controllers\UserController::class, 'store'])->name('user.store');
+    Route::get('/{id}/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
+    Route::put('/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
+    Route::delete('/{id}/delete', [App\Http\Controllers\UserController::class, 'destroy'])->name('user.destroy');
+    Route::get('/{id}/show', [App\Http\Controllers\UserController::class, 'show'])->name('user.show');
 });
 Route::get('/email', [App\Http\Controllers\UserController::class, 'email'])->name('user.email');
