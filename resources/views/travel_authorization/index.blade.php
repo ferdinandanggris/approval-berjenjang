@@ -168,6 +168,8 @@ if (($travelAuthorization->is_approve_officer == 0 || $travelAuthorization->is_a
                                             </td>
                                         @endif
                                         <td>
+                                            <a href="/travel_authorization/{{ $travelAuthorization->id }}/show"
+                                                class="badge bg-info mb-1"><i class="bi bi-eye"></i></a>
                                             <a href="/travel_authorization/{{ $travelAuthorization->id }}/edit"
                                                 class="badge bg-warning mb-1"><i class="bi bi-pencil-square"></i></a>
                                             <form action="/travel_authorization/{{ $travelAuthorization->id }}/delete"

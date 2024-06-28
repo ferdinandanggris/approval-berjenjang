@@ -100,6 +100,20 @@ class LeaveApplicationController extends Controller
     }
 
     /**
+     * Show the detail specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $leaveApplication = LeaveApplication::find($id);
+        return view('leave_application.detail', [
+            'leaveApplication' => $leaveApplication
+        ]);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -160,7 +174,9 @@ class LeaveApplicationController extends Controller
     }
 
     public function setStatus($status, $id){
-        $role = auth()->user()->role;
+        $user = auth()->user();
+        $role = $user->role;
+        $user_id = $user->id;
         $leaveApplication = LeaveApplication::find($id);
         $text = "";
         switch ($role) {
@@ -168,8 +184,10 @@ class LeaveApplicationController extends Controller
                 $text = "by Officer";
                 if ($status == 'approve') {
                     $leaveApplication->is_approve_officer = 1;
+                    $leaveApplication->officer_id = $user_id;
                 } else {
                     $leaveApplication->is_approve_officer = 2;
+                    $leaveApplication->officer_id = $user_id;
                 }
                 break;
             case 'hr': 
@@ -177,8 +195,10 @@ class LeaveApplicationController extends Controller
                 $text = "by HR Manager";
                 if ($status == 'approve') {
                     $leaveApplication->is_approve_hr = 1;
+                    $leaveApplication->hr_id = $user_id;
                 } else {
                     $leaveApplication->is_approve_hr = 2;
+                    $leaveApplication->hr_id = $user_id;
                 }
                 break;
             case 'employee':

@@ -26,6 +26,7 @@ Route::prefix('leave_application')->middleware('auth')->group(function () {
     Route::get('/create', [App\Http\Controllers\LeaveApplicationController::class, 'create'])->name('leave_application.create');
     Route::post('/store', [App\Http\Controllers\LeaveApplicationController::class, 'store'])->name('leave_application.store');
     Route::get('/{id}/edit', [App\Http\Controllers\LeaveApplicationController::class, 'edit'])->name('leave_application.edit');
+    Route::get('/{id}/show', [App\Http\Controllers\LeaveApplicationController::class, 'show'])->name('leave_application.show');
     Route::put('/{id}', [App\Http\Controllers\LeaveApplicationController::class, 'update'])->name('leave_application.update');
     Route::delete('/{id}/delete', [App\Http\Controllers\LeaveApplicationController::class, 'destroy'])->name('leave_application.destroy');
     Route::post('/{id}/approve', [App\Http\Controllers\LeaveApplicationController::class, 'approve'])->name('leave_application.approve');
@@ -38,6 +39,7 @@ Route::prefix('travel_authorization')->middleware('auth')->group(function(){
     Route::get('/create', [App\Http\Controllers\TravelAuthorizationController::class, 'create'])->name('travel_authorization.create');
     Route::post('/store', [App\Http\Controllers\TravelAuthorizationController::class, 'store'])->name('travel_authorization.store');
     Route::get('/{id}/edit', [App\Http\Controllers\TravelAuthorizationController::class, 'edit'])->name('travel_authorization.edit');
+    Route::get('/{id}/show',[App\Http\Controllers\TravelAuthorizationController::class, 'show'])->name('travel_authorization.show');
     Route::put('/{id}', [App\Http\Controllers\TravelAuthorizationController::class, 'update'])->name('travel_authorization.update');
     Route::delete('/{id}/delete', [App\Http\Controllers\TravelAuthorizationController::class, 'destroy'])->name('travel_authorization.destroy');
     Route::post('/{id}/approve', [App\Http\Controllers\TravelAuthorizationController::class, 'approve'])->name('travel_authorization.approve');
@@ -48,3 +50,4 @@ Route::prefix('travel_authorization')->middleware('auth')->group(function(){
 Route::prefix('user')->middleware('auth')->group(function(){
     Route::get('/', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
 });
+Route::get('/email', [App\Http\Controllers\UserController::class, 'email'])->name('user.email');

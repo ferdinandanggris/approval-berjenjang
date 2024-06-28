@@ -16,10 +16,26 @@ class TravelAuthorization extends Model
         'end_date',
         'status',
         'reason',
+        'is_approve_officer',
+        'is_approve_hr',
+        'is_approve_finance',
+        'officer_id',
+        'hr_id',
+        'finance_id'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function officer()
+    {
+        return $this->belongsTo(User::class, 'officer_id');
+    }
+
+    public function hr()
+    {
+        return $this->belongsTo(User::class, 'hr_id');
     }
 }

@@ -16,14 +16,14 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         User::create([
-            'name' => 'HR Manager',
+            'name' => 'Tony HR',
             'role' => 'hr',
             'email' => 'hr@gmail.com',
             'password' => bcrypt('password'),
         ]);
 
         User::create([
-            'name' => 'Employee',
+            'name' => 'Agus Emp',
             'email' => 'employee@gmail.com',
             'role' => 'employee',
             'password' => bcrypt('password'),
@@ -31,21 +31,21 @@ class DatabaseSeeder extends Seeder
 
         
         User::create([
-            'name' => 'Employee 2',
+            'name' => 'Susan Emp',
             'email' => 'employee2@gmail.com',
             'role' => 'employee',
             'password' => bcrypt('password'),
         ]);
 
         User::create([
-            'name' => 'Officer',
+            'name' => 'Budi Officer',
             'email' => 'officer@gmail.com',
             'role' => 'officer',
             'password' => bcrypt('password'),
         ]);
 
         User::create([
-            'name' => 'Finance Manager',
+            'name' => 'Ratna Finance',
             'email' => 'finance@gmail.com',
             'role' => 'finance',
             'password' => bcrypt('password'),

@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ApprovalMailHelper;
+use App\Helpers\ReplyApprovalMailHelper;
+use App\Mail\ApprovalRequiredMail;
+use App\Mail\ReplyEmailApproval;
+use App\Models\LeaveApplication;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -82,5 +88,13 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function email()
+    {
+        $data = LeaveApplication::with(['user', 'hr', 'officer'])->first();
+        $helperReplyEmail = new ReplyApprovalMailHelper('leave_application', $data->id, $data->officer, 'approve');
+        $helperReplyEmail->sendEmail();
+        dd('email sent');
     }
 }

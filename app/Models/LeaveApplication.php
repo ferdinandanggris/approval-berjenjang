@@ -18,11 +18,23 @@ class LeaveApplication extends Model
         'status',
         'reason',
         'is_approve_by_hr',
-        'is_approve_by_officer'
+        'hr_id',
+        'is_approve_by_officer',
+        'officer_id',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function hr()
+    {
+        return $this->belongsTo(User::class, 'hr_id');
+    }
+
+    public function officer()
+    {
+        return $this->belongsTo(User::class, 'officer_id');
     }
 }

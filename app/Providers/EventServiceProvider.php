@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\LeaveApplication;
+use App\Models\TravelAuthorization;
+use App\Observers\LeaveApplicationObserver;
+use App\Observers\TravelAuthorizationObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -27,6 +31,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        LeaveApplication::observe(LeaveApplicationObserver::class);
+        TravelAuthorization::observe(TravelAuthorizationObserver::class);
     }
 }

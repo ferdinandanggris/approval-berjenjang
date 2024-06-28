@@ -88,6 +88,21 @@ class TravelAuthorizationController extends Controller
     }
 
     /**
+     * Show the detail specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $travelAuthorization = TravelAuthorization::find($id);
+        return view('travel_authorization.detail', [
+            'travelAuthorization' => $travelAuthorization
+        ]);
+    }
+
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -160,7 +175,9 @@ class TravelAuthorizationController extends Controller
     }
 
     public function setStatus($status, $id){
-        $role = auth()->user()->role;
+        $user = auth()->user();
+        $role = $user->role;
+        $user_id = $user->id;
         $travelAuthorization = TravelAuthorization::find($id);
         $text = "";
         switch ($role) {
@@ -168,8 +185,10 @@ class TravelAuthorizationController extends Controller
                 $text = "by Officer";
                 if ($status == 'approve') {
                     $travelAuthorization->is_approve_officer = 1;
+                    $travelAuthorization->officer_id = $user_id;
                 } else {
                     $travelAuthorization->is_approve_officer = 2;
+                    $travelAuthorization->officer_id = $user_id;
                 }
                 break;
             case 'hr': 
@@ -177,8 +196,10 @@ class TravelAuthorizationController extends Controller
                 $text = "by HR Manager";
                 if ($status == 'approve') {
                     $travelAuthorization->is_approve_hr = 1;
+                    $travelAuthorization->hr_id = $user_id;
                 } else {
                     $travelAuthorization->is_approve_hr = 2;
+                    $travelAuthorization->hr_id = $user_id;
                 }
                 break;
             case 'employee':
@@ -190,8 +211,10 @@ class TravelAuthorizationController extends Controller
                 $text = "by Finance Manager";
                 if ($status == 'approve') {
                     $travelAuthorization->is_approve_finance = 1;
+                    $travelAuthorization->finance_id = $user_id;
                 } else {
                     $travelAuthorization->is_approve_finance = 2;
+                    $travelAuthorization->finance_id = $user_id;
                 }
                 break;
             default:

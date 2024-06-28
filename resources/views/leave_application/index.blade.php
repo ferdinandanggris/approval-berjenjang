@@ -149,6 +149,8 @@ if (($leaveApplication->is_approve_officer == 0 || $leaveApplication->is_approve
                                             </td>
                                         @endif
                                         <td>
+                                            <a href="/leave_application/{{ $leaveApplication->id }}/show"
+                                                class="badge bg-info mb-1"><i class="bi bi-eye"></i></a>
                                             <a href="/leave_application/{{ $leaveApplication->id }}/edit"
                                                 class="badge bg-warning mb-1"><i class="bi bi-pencil-square"></i></a>
                                             <form action="/leave_application/{{ $leaveApplication->id }}/delete"
