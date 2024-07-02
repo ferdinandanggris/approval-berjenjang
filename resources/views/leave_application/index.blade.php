@@ -102,8 +102,8 @@
                                         <td>{{ $leaveApplication->user->name ?? '' }}</td>
                                         <td>{{ $leaveApplication->reason }}</td>
                                         <td class="text-center">
-                                            {{ date('d-m-Y', strtotime($leaveApplication->start_date)) }}
-                                            - {{ date('d-m-Y', strtotime($leaveApplication->end_date)) }}</td>
+                                            {{ formatTanggal(strtotime($leaveApplication->start_date)) }}
+                                            - {{ formatTanggal(strtotime($leaveApplication->end_date)) }}</td>
                                         <td>
                                             <span
                                                 class="badge {{ statusClass($leaveApplication->is_approve_officer) }}">{{ statusText($leaveApplication->is_approve_officer) }}

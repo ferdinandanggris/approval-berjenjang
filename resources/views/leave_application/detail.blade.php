@@ -59,11 +59,11 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="my-1">Start Date</p>
-                        <p class="my-1">{{ date('d F Y', strtotime($leaveApplication->start_date)) }}</p>
+                        <p class="my-1">{{ formatTanggal(strtotime($leaveApplication->start_date)) }}</p>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="my-1">End Date</p>
-                        <p class="my-1">{{ date('d F Y', strtotime($leaveApplication->end_date)) }}</p>
+                        <p class="my-1">{{ formatTanggal(strtotime($leaveApplication->end_date)) }}</p>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="my-1">Reason</p>

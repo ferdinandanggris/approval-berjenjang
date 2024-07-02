@@ -38,4 +38,8 @@ class TravelAuthorization extends Model
     {
         return $this->belongsTo(User::class, 'hr_id');
     }
+
+    public function finance(){
+        return $this->belongsTo(User::class, 'finance_id');
+    }
 }

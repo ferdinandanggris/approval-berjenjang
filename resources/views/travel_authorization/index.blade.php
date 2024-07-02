@@ -102,8 +102,8 @@
                                         <td>{{ $travelAuthorization->user->name }}</td>
                                         <td>{{ $travelAuthorization->reason }}</td>
                                         <td class="text-center">
-                                            {{ date('d-m-Y', strtotime($travelAuthorization->start_date)) }} -
-                                            {{ date('d-m-Y', strtotime($travelAuthorization->end_date)) }}</td>
+                                            {{ formatTanggal(strtotime($travelAuthorization->start_date)) }} -
+                                            {{ formatTanggal(strtotime($travelAuthorization->end_date)) }}</td>
                                         <td>
                                             <span
                                                 class="badge {{ statusClass($travelAuthorization->is_approve_officer) }}">{{ statusText($travelAuthorization->is_approve_officer) }}

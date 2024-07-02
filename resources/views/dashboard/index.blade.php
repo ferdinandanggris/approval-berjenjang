@@ -85,7 +85,7 @@
                                   <td>{{ $loop->iteration }}</td>
                                   <td>{{ $leaveApplication->user->name ?? '' }}</td>
                                   <td>{{ $leaveApplication->reason }}</td>
-                                  <td class="text-center">{{date('d-m-Y',strtotime($leaveApplication->start_date))}} - {{date('d-m-Y',strtotime($leaveApplication->end_date))}}</td>
+                                  <td class="text-center">{{formatTanggal(strtotime($leaveApplication->start_date))}} - {{formatTanggal(strtotime($leaveApplication->end_date))}}</td>
                                   <td>
                                       <span
                                           class="badge {{ statusClass($leaveApplication->is_approve_officer) }}">{{ statusText($leaveApplication->is_approve_officer) }}
@@ -196,7 +196,7 @@
                                       <td>{{ $loop->iteration }}</td>
                                       <td>{{ $travelAuthorization->user->name }}</td>
                                       <td>{{ $travelAuthorization->reason }}</td>
-                                      <td class="text-center">{{date('d-m-Y',strtotime($travelAuthorization->start_date))}} - {{date('d-m-Y',strtotime($travelAuthorization->end_date))}}</td>
+                                      <td class="text-center">{{formatTanggal(strtotime($travelAuthorization->start_date))}} - {{formatTanggal(strtotime($travelAuthorization->end_date))}}</td>
                                       <td>
                                           <span
                                               class="badge {{ statusClassTravel($travelAuthorization->is_approve_officer) }}">{{ statusText($travelAuthorization->is_approve_officer) }}
