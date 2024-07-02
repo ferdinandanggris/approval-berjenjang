@@ -37,7 +37,7 @@ class TravelAuthorizationController extends Controller
                 ->orWhere('end_date', 'like', "%$search%")
                 ->orWhere('reason', 'like', "%$search%")
                 ->orWhereHas('user', function ($query) use ($search) {
-                    $query->where('name', 'like', "%$search%");
+                    $query->where('name', 'like', "%$search%"); 
                 });
             })
             ->with('user')->get();
@@ -155,7 +155,7 @@ class TravelAuthorizationController extends Controller
 
     public function approve(Request $request,$id)
     {
-        $status = $this->setStatus('approve', $id);
+        $status = $this->setStatus('approve', $id, $request->reason);
         if ($status == '') {
             return redirect()->route('travel_authorization.index')->with('error', 'You are not authorized to perform this action');
         }
@@ -166,7 +166,7 @@ class TravelAuthorizationController extends Controller
 
     public function reject(Request $request,$id)
     {
-        $status = $this->setStatus('reject', $id);
+        $status = $this->setStatus('reject', $id, $request->reason);
         if ($status['status'] == true) {
             return redirect()->route('travel_authorization.index')->with('success', 'Leave application status updated successfully');
         } else {
@@ -174,7 +174,7 @@ class TravelAuthorizationController extends Controller
         }
     }
 
-    public function setStatus($status, $id){
+    public function setStatus($status, $id, $reason = ''){
         $user = auth()->user();
         $role = $user->role;
         $user_id = $user->id;
@@ -186,9 +186,11 @@ class TravelAuthorizationController extends Controller
                 if ($status == 'approve') {
                     $travelAuthorization->is_approve_officer = 1;
                     $travelAuthorization->officer_id = $user_id;
+                    $travelAuthorization->officer_reason = $reason;
                 } else {
                     $travelAuthorization->is_approve_officer = 2;
                     $travelAuthorization->officer_id = $user_id;
+                    $travelAuthorization->officer_reason = $reason;
                 }
                 break;
             case 'hr': 
@@ -197,9 +199,11 @@ class TravelAuthorizationController extends Controller
                 if ($status == 'approve') {
                     $travelAuthorization->is_approve_hr = 1;
                     $travelAuthorization->hr_id = $user_id;
+                    $travelAuthorization->hr_reason = $reason;
                 } else {
                     $travelAuthorization->is_approve_hr = 2;
                     $travelAuthorization->hr_id = $user_id;
+                    $travelAuthorization->hr_reason = $reason;
                 }
                 break;
             case 'employee':
@@ -212,9 +216,11 @@ class TravelAuthorizationController extends Controller
                 if ($status == 'approve') {
                     $travelAuthorization->is_approve_finance = 1;
                     $travelAuthorization->finance_id = $user_id;
+                    $travelAuthorization->finance_reason = $reason;
                 } else {
                     $travelAuthorization->is_approve_finance = 2;
                     $travelAuthorization->finance_id = $user_id;
+                    $travelAuthorization->finance_reason = $reason;
                 }
                 break;
             default:

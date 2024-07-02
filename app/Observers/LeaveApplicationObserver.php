@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Helpers\ApprovalMailHelper;
 use App\Helpers\ReplyApprovalMailHelper;
+use App\Jobs\SendEmailJob;
 use App\Models\LeaveApplication;
 
 class LeaveApplicationObserver
@@ -18,7 +19,8 @@ class LeaveApplicationObserver
     {
         //kirim email ke approval
         $approvalHelper = new ApprovalMailHelper('leave_application', $leaveApplication->id);
-        $approvalHelper->sendEmail();
+        // $approvalHelper->sendEmail();
+        dispatch(new SendEmailJob($approvalHelper))->onQueue('send-email');
     }
 
     /**
@@ -35,23 +37,28 @@ class LeaveApplicationObserver
         if (in_array("is_approve_hr", $keyChange) || in_array("is_approve_officer", $keyChange)) {
             //kirim email ke approval
             $approvalHelper = new ApprovalMailHelper('leave_application', $leaveApplication->id);
-            $approvalHelper->sendEmail();
+            // $approvalHelper->sendEmail();
+            dispatch(new SendEmailJob($approvalHelper))->onQueue('send-email');
             if (in_array("is_approve_hr", $keyChange) && $leaveApplication->is_approve_hr == 1) {
                 //kirim email ke user
                 $replyApproval = new ReplyApprovalMailHelper('leave_application', $leaveApplication->id, $leaveApplication->hr, 'approve');
-                $replyApproval->sendEmail();
-            }else if(in_array("is_approve_hr", $keyChange) && $leaveApplication->is_approve_hr == 2){
+                // $replyApproval->sendEmail();
+                dispatch(new SendEmailJob($replyApproval))->onQueue('send-email');
+            } else if (in_array("is_approve_hr", $keyChange) && $leaveApplication->is_approve_hr == 2) {
                 $replyApproval = new ReplyApprovalMailHelper('leave_application', $leaveApplication->id, $leaveApplication->hr, 'decline');
-                $replyApproval->sendEmail();
+                // $replyApproval->sendEmail();
+                dispatch(new SendEmailJob($replyApproval))->onQueue('send-email');
             }
 
             if (in_array("is_approve_officer", $keyChange) && $leaveApplication->is_approve_officer == 1) {
                 // kirim email ke user
                 $replyApproval = new ReplyApprovalMailHelper('leave_application', $leaveApplication->id, $leaveApplication->officer, 'approve');
-                $replyApproval->sendEmail();    
-            }else if(in_array("is_approve_officer", $keyChange) && $leaveApplication->is_approve_officer == 2){
+                // $replyApproval->sendEmail();    
+                dispatch(new SendEmailJob($replyApproval))->onQueue('send-email');
+            } else if (in_array("is_approve_officer", $keyChange) && $leaveApplication->is_approve_officer == 2) {
                 $replyApproval = new ReplyApprovalMailHelper('leave_application', $leaveApplication->id, $leaveApplication->officer, 'decline');
-                $replyApproval->sendEmail();
+                // $replyApproval->sendEmail();
+                dispatch(new SendEmailJob($replyApproval))->onQueue('send-email');
             }
         }
     }

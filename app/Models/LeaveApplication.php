@@ -17,10 +17,12 @@ class LeaveApplication extends Model
         'end_date',
         'status',
         'reason',
-        'is_approve_by_hr',
+        'is_approve_hr',
         'hr_id',
-        'is_approve_by_officer',
+        'is_approve_officer',
         'officer_id',
+        'hr_reason',
+        'officer_reason'
     ];
 
     public function user()

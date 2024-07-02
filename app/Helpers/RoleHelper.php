@@ -26,7 +26,7 @@ function roleBadgeColor($role){
 }
 
   function checkIsHaveAccess($auth,$data_approval){
-    $isHaveAccess = false;
+    $isHaveAccess = true;
     if (($data_approval->is_approve_officer == 0 || $data_approval->is_approve_officer == 2)) {
       if ($auth->user()->role == 'officer') {
         $isHaveAccess = true;

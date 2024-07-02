@@ -153,7 +153,7 @@ class LeaveApplicationController extends Controller
 
     public function approve(Request $request,$id)
     {
-        $status = $this->setStatus('approve', $id);
+        $status = $this->setStatus('approve', $id, $request->reason);
         if ($status == '') {
             return redirect()->route('leave_application.index')->with('error', 'You are not authorized to perform this action');
         }
@@ -165,7 +165,7 @@ class LeaveApplicationController extends Controller
     public function reject(Request $request,$id)
     {
         $leaveApplication = LeaveApplication::find($id);
-        $status = $this->setStatus('reject', $id);
+        $status = $this->setStatus('reject', $id, $request->reason);
         if ($status['status'] == true) {
             return redirect()->route('leave_application.index')->with('success', 'Leave application status updated successfully');
         } else {
@@ -173,7 +173,7 @@ class LeaveApplicationController extends Controller
         }
     }
 
-    public function setStatus($status, $id){
+    public function setStatus($status, $id, $reason = ''){
         $user = auth()->user();
         $role = $user->role;
         $user_id = $user->id;
@@ -185,9 +185,11 @@ class LeaveApplicationController extends Controller
                 if ($status == 'approve') {
                     $leaveApplication->is_approve_officer = 1;
                     $leaveApplication->officer_id = $user_id;
+                    $leaveApplication->officer_reason = $reason;
                 } else {
                     $leaveApplication->is_approve_officer = 2;
                     $leaveApplication->officer_id = $user_id;
+                    $leaveApplication->officer_reason = $reason;
                 }
                 break;
             case 'hr': 
@@ -196,9 +198,11 @@ class LeaveApplicationController extends Controller
                 if ($status == 'approve') {
                     $leaveApplication->is_approve_hr = 1;
                     $leaveApplication->hr_id = $user_id;
+                    $leaveApplication->hr_reason = $reason;
                 } else {
                     $leaveApplication->is_approve_hr = 2;
                     $leaveApplication->hr_id = $user_id;
+                    $leaveApplication->hr_reason = $reason;
                 }
                 break;
             case 'employee':
@@ -210,8 +214,10 @@ class LeaveApplicationController extends Controller
                 $text = "by Finance Manager";
                 if ($status == 'approve') {
                     $leaveApplication->is_approve_finance = 1;
+                    $leaveApplication->reason = $reason;
                 } else {
                     $leaveApplication->is_approve_finance = 2;
+                    $leaveApplication->reason = $reason;
                 }
                 break;
             default:

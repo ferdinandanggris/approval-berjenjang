@@ -21,7 +21,10 @@ class TravelAuthorization extends Model
         'is_approve_finance',
         'officer_id',
         'hr_id',
-        'finance_id'
+        'finance_id',
+        'officer_reason',
+        'hr_reason',
+        'finance_reason'
     ];
 
     public function user()
