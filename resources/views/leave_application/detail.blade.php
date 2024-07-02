@@ -10,31 +10,6 @@
         }
     }
 
-    function roleBadgeColor($role)
-    {
-        switch ($role) {
-            case 'officer':
-                # code...
-                return 'bg-primary';
-                break;
-            case 'hr':
-                # code...
-                return 'bg-success';
-                break;
-            case 'finance':
-                # code...
-                return 'bg-warning';
-                break;
-            case 'employee':
-                # code...
-                return 'bg-info';
-                break;
-            default:
-                # code...
-                return 'bg-primary';
-                break;
-        }
-    }
 @endphp
 @extends('layouts.main')
 @section('container')
@@ -119,32 +94,20 @@
     </div>
     <div class="d-flex justify-content-end mt-2">
         <a href="/leave_application" class="btn btn-secondary">Back</a>
-        @if (auth()->user()->role == 'hr' || auth()->user()->role == 'officer')
-        <form action="/leave_application/{{ $leaveApplication->id }}/approve" class="m-0 p-0" method="post">
-            @csrf
-            <button id="btn-reject" type="submit" id="approve" name="submit"
-                @php
-if (($leaveApplication->is_approve_officer == 0 || $leaveApplication->is_approve_officer == 2) ){
-if (auth()->user()->role == 'officer'){
-}else{
-echo 'disabled';
-}
-} @endphp
-                onclick="return confirm('Are you sure?')" class="btn btn-success rounded-start mx-1"> Approve
-            </button>
-        </form>
-        <form action="/leave_application/{{ $leaveApplication->id }}/reject" method="post" class="m-0 p-0">
-            @csrf
-            <button name="submit" onclick="return confirm('Are you sure?')"
-                @php
-if (($leaveApplication->is_approve_officer == 0 || $leaveApplication->is_approve_officer == 2) ){
-if (auth()->user()->role == 'officer'){
-}else{
-echo 'disabled';
-}
-} @endphp
-                type="submit" class="btn btn-danger rounded-end">Decline</button>
-        </form>
+        @if (checkRole(auth(),'hr') || checkRole(auth(),'officer'))
+            <form action="/leave_application/{{ $leaveApplication->id }}/approve" class="m-0 p-0" method="post">
+                @csrf
+                <button id="btn-reject" type="submit" id="approve" name="submit"
+                    <?= checkIsHaveAccess(auth(), $leaveApplication) ? '' : 'disabled' ?>
+                    onclick="return confirm('Are you sure?')" class="btn btn-success rounded-start mx-1"> Approve
+                </button>
+            </form>
+            <form action="/leave_application/{{ $leaveApplication->id }}/reject" method="post" class="m-0 p-0">
+                @csrf
+                <button name="submit" onclick="return confirm('Are you sure?')"
+                    <?= checkIsHaveAccess(auth(), $leaveApplication) ? '' : 'disabled' ?> type="submit"
+                    class="btn btn-danger rounded-end">Decline</button>
+            </form>
         @endif
     </div>
 @endsection

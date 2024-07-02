@@ -89,7 +89,7 @@
                                     <th scope="col">Reason</th>
                                     <th scope="col" class="text-center">Date</th>
                                     <th scope="col">Status</th>
-                                    @if (auth()->user()->role == 'hr' || auth()->user()->role == 'officer')
+                                    @if (checkRole(auth(),'hr') || checkRole(auth(),'officer'))
                                         <th scope="col" data-toggle="tooltip" title="{{ textTooltip() }}">Approval</th>
                                     @endif
                                     <th scope="col">Action</th>
@@ -112,7 +112,7 @@
                                                 class="badge {{ statusClass($leaveApplication->is_approve_hr) }}">{{ statusText($leaveApplication->is_approve_hr) }}
                                                 Human Resources Manager</span><br>
                                         </td>
-                                        @if (auth()->user()->role == 'hr' || auth()->user()->role == 'officer')
+                                        @if (checkRole(auth(),'hr') || checkRole(auth(),'officer'))
                                             <td>
                                                 <div class="btn-group btn-sm mb-1" role="group"
                                                     aria-label="Basic example">
@@ -120,13 +120,7 @@
                                                         class="btn-group m-0 p-0" method="post">
                                                         @csrf
                                                         <button id="btn-reject" type="submit" id="approve" name="submit"
-                                                            @php
-if (($leaveApplication->is_approve_officer == 0 || $leaveApplication->is_approve_officer == 2) ){
-                                              if (auth()->user()->role == 'officer'){
-                                              }else{
-                                                echo 'disabled';
-                                              }
-                                              } @endphp
+                                                            <?= checkIsHaveAccess(auth(), $leaveApplication) ? '': 'disabled';?>
                                                             onclick="return confirm('Are you sure?')"
                                                             class="btn btn-sm btn-success rounded-start"><i
                                                                 class="bi bi-check-lg"></i></button>
@@ -135,13 +129,7 @@ if (($leaveApplication->is_approve_officer == 0 || $leaveApplication->is_approve
                                                         method="post" class="btn-group m-0 p-0">
                                                         @csrf
                                                         <button name="submit" onclick="return confirm('Are you sure?')"
-                                                            @php
-if (($leaveApplication->is_approve_officer == 0 || $leaveApplication->is_approve_officer == 2) ){
-                                              if (auth()->user()->role == 'officer'){
-                                              }else{
-                                                echo 'disabled';
-                                              }
-                                              } @endphp
+                                                            <?= checkIsHaveAccess(auth(), $leaveApplication) ? '': 'disabled';?>
                                                             type="submit" class="btn btn-sm btn-danger rounded-end"><i
                                                                 class="bi bi-x"></i></button>
                                                     </form>

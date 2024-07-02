@@ -89,7 +89,7 @@
                                     <th scope="col">Reason</th>
                                     <th scope="col" class="text-center">Date</th>
                                     <th scope="col">Status</th>
-                                    @if (auth()->user()->role == 'hr' || auth()->user()->role == 'finance' || auth()->user()->role == 'officer')
+                                    @if (checkRole(auth(),'hr') || checkRole(auth(),'officer') || checkRole(auth(),'finance'))
                                         <th scope="col" data-toggle="tooltip" title="{{ textTooltip() }}">Approval</th>
                                     @endif
                                     <th scope="col">Action</th>
@@ -115,7 +115,7 @@
                                                 class="badge {{ statusClass($travelAuthorization->is_approve_finance) }}">{{ statusText($travelAuthorization->is_approve_finance) }}
                                                 Finance Manager</span><br>
                                         </td>
-                                        @if (auth()->user()->role == 'hr' || auth()->user()->role == 'officer' || auth()->user()->role == 'finance')
+                                        @if (checkRole(auth(),'hr') || checkRole(auth(),'officer') || checkRole(auth(),'finance'))
                                             <td>
                                                 <div class="btn-group btn-sm mb-1" role="group"
                                                     aria-label="Basic example">
@@ -124,20 +124,7 @@
                                                         class="btn-group m-0 p-0" method="post">
                                                         @csrf
                                                         <button id="btn-reject" type="submit" id="approve" name="submit"
-                                                            @php
-if (($travelAuthorization->is_approve_officer == 0 || $travelAuthorization->is_approve_officer == 2)){
-                                                if (auth()->user()->role == 'officer'){
-                                                    
-                                                }else{
-                                                  echo 'disabled';
-                                                }
-                                                }else if($travelAuthorization->is_approve_hr == 0 || $travelAuthorization->is_approve_hr == 2){
-                                                if (auth()->user()->role == 'hr' || auth()->user()->role == 'officer'){
-        
-                                                }else{
-                                                    echo 'disabled';
-                                                }
-                                                } @endphp
+                                                        <?= checkIsHaveAccess(auth(), $travelAuthorization) ? '': 'disabled';?>
                                                             onclick="return confirm('Are you sure?')"
                                                             class="btn btn-sm btn-success rounded-start"><i
                                                                 class="bi bi-check-lg"></i></button>
@@ -147,20 +134,7 @@ if (($travelAuthorization->is_approve_officer == 0 || $travelAuthorization->is_a
                                                         method="post" class="btn-group m-0 p-0">
                                                         @csrf
                                                         <button name="submit" onclick="return confirm('Are you sure?')"
-                                                            @php
-if (($travelAuthorization->is_approve_officer == 0 || $travelAuthorization->is_approve_officer == 2)){
-                                                if (auth()->user()->role == 'officer'){
-                                                    
-                                                }else{
-                                                  echo 'disabled';
-                                                }
-                                                }else if($travelAuthorization->is_approve_hr == 0 || $travelAuthorization->is_approve_hr == 2){
-                                                if (auth()->user()->role == 'hr' || auth()->user()->role == 'officer'){
-                                                    
-                                                }else{
-                                                    echo 'disabled';
-                                                }
-                                                } @endphp
+                                                        <?= checkIsHaveAccess(auth(), $travelAuthorization) ? '': 'disabled';?>
                                                             type="submit" class="btn btn-sm btn-danger rounded-end"><i
                                                                 class="bi bi-x"></i></button>
                                                     </form>

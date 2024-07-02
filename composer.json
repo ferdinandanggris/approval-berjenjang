@@ -36,7 +36,8 @@
     },
     "autoload": {
         "files": [
-            "app/Helpers/TanggalHelper.php"
+            "app/Helpers/TanggalHelper.php",
+            "app/Helpers/RoleHelper.php"
         ],
         "psr-4": {
             "App\\": "app/",
