@@ -70,13 +70,13 @@ class TravelAuthorizationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'reason' => 'required',
         ]);
 
         $payload = $request->only('user_id', 'start_date', 'end_date', 'reason');
+        $payload['user_id'] = auth()->user()->id;
         $payload['status'] = 'Pending with Approval Officer';
 
         $travelAuthorization = TravelAuthorization::create($payload);
@@ -128,13 +128,13 @@ class TravelAuthorizationController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'user_id' => 'required',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'reason' => 'required',
         ]);
 
         $payload = $request->only('user_id', 'start_date', 'end_date', 'reason', 'status');
+        $payload['user_id'] = auth()->user()->id;
         $travelAuthorization = TravelAuthorization::find($id);
         $travelAuthorization->update($payload);
 
