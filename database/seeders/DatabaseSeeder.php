@@ -18,13 +18,13 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Tony HR',
             'role' => 'hr',
-            'email' => 'hr@gmail.com',
+            'email' => 'hr@mailnesia.com',
             'password' => bcrypt('password'),
         ]);
 
         User::create([
             'name' => 'Agus Emp',
-            'email' => 'employee@gmail.com',
+            'email' => 'employee@mailnesia.com',
             'role' => 'employee',
             'password' => bcrypt('password'),
         ]);
@@ -32,21 +32,21 @@ class DatabaseSeeder extends Seeder
         
         User::create([
             'name' => 'Susan Emp',
-            'email' => 'employee2@gmail.com',
+            'email' => 'employee2@mailnesia.com',
             'role' => 'employee',
             'password' => bcrypt('password'),
         ]);
 
         User::create([
             'name' => 'Budi Officer',
-            'email' => 'officer@gmail.com',
+            'email' => 'officer@mailnesia.com',
             'role' => 'officer',
             'password' => bcrypt('password'),
         ]);
 
         User::create([
             'name' => 'Ratna Finance',
-            'email' => 'finance@gmail.com',
+            'email' => 'finance@mailnesia.com',
             'role' => 'finance',
             'password' => bcrypt('password'),
         ]);
