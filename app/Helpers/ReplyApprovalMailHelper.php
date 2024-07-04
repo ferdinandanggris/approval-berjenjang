@@ -16,6 +16,23 @@ class ReplyApprovalMailHelper{
     $this->setData($kategori_pengajuan, $id);
   }
 
+  public function setDataCatatan($role_penyetuju, $data_approval){
+    switch ($role_penyetuju) {
+      case 'officer':
+        return $data_approval->officer_reason;
+        break;
+      case 'hr':
+        return $data_approval->hr_reason;
+        break;
+      case 'finance':
+        return $data_approval->finance_reason;
+        break;
+      default:
+        return '-';
+        break;
+    }
+  }
+
   public function setData($kategori_pengajuan, $id){
     switch ($kategori_pengajuan) {
       case 'leave_application':
@@ -45,7 +62,8 @@ class ReplyApprovalMailHelper{
         "tanggal_selesai" => $data['end_date'],
         "status_approval" => $this->status,
         "status" => $this->status,
-        "url_link" => $data['url']
+        "url_link" => $data['url'],
+        "catatan" => $this->setDataCatatan($this->penyetuju['role'], $data)
     ];
     $this->data = $data;
   }

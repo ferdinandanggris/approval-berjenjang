@@ -62,6 +62,11 @@
                                     </p>
                                     <span
                                         class="badge {{ roleBadgeColor($leaveApplication->officer->role ?? 'officer') }} text-uppercase">{{ $leaveApplication->officer->role ?? 'officer' }}</span>
+                                    @if ($leaveApplication->is_approve_officer > 0)
+                                        <p class="my-0 text-muted">
+                                            Catatan : {{ $leaveApplication->officer_reason }}
+                                        </p>
+                                    @endif
                                 </div>
                                 <div class="">
                                     <span
@@ -80,6 +85,11 @@
                                     </p>
                                     <span
                                         class="badge {{ roleBadgeColor($leaveApplication->hr->role ?? 'hr') }} text-uppercase">{{ $leaveApplication->hr->role ?? 'hr' }}</span>
+                                    @if ($leaveApplication->is_approve_hr > 0)
+                                        <p class="my-0 text-muted">
+                                            Catatan : {{ $leaveApplication->hr_reason }}
+                                        </p>
+                                    @endif
                                 </div>
                                 <div class="">
                                     <span
@@ -94,19 +104,20 @@
     </div>
     <div class="d-flex justify-content-end mt-2">
         <a href="/leave_application" class="btn btn-secondary">Back</a>
-        @if (checkRole(auth(),'hr') || checkRole(auth(),'officer'))
+        @if (checkRole(auth(), 'hr') || checkRole(auth(), 'officer'))
             <form action="/leave_application/{{ $leaveApplication->id }}/approve" class="m-0 p-0" method="post">
                 @csrf
-                <button id="btn-reject" type="submit" id="approve" name="submit"
-                    <?= checkIsHaveAccess(auth(), $leaveApplication) ? '' : 'disabled' ?>
-                    onclick="return confirm('Are you sure?')" class="btn btn-success rounded-start mx-1"> Approve
+                <button onclick="sendLinkActionToModal('/leave_application/' +{{ $leaveApplication->id }} +'/approve')"
+                    type="button" class="mx-1 btn btn-success rounded-start" data-bs-toggle="modal"
+                    data-bs-target="#approvalModal" <?= checkIsHaveAccess(auth(), $leaveApplication) ? '' : 'disabled' ?>>
+                    Approve
                 </button>
             </form>
             <form action="/leave_application/{{ $leaveApplication->id }}/reject" method="post" class="m-0 p-0">
                 @csrf
-                <button name="submit" onclick="return confirm('Are you sure?')"
-                    <?= checkIsHaveAccess(auth(), $leaveApplication) ? '' : 'disabled' ?> type="submit"
-                    class="btn btn-danger rounded-end">Decline</button>
+                <button onclick="sendLinkActionToModal('/leave_application/' +{{ $leaveApplication->id }} +'/reject')"
+                    type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#approvalModal"
+                    <?= checkIsHaveAccess(auth(), $leaveApplication) ? '' : 'disabled' ?>>Decline</button>
             </form>
         @endif
     </div>

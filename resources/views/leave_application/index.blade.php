@@ -61,7 +61,8 @@
                     <div class="d-flex justify-content-between">
                         <div class="d-flex justify-content-start">
                             <div class="">
-                                <a class="btn btn-primary mb-2 mx-2" href="/leave_application/create">Create Leave Application</a>
+                                <a class="btn btn-primary mb-2 mx-2" href="/leave_application/create">Create Leave
+                                    Application</a>
                             </div>
                             <div class="">
                                 <a href="/leave_application/excel" class="btn btn-success" target="_blank"
@@ -89,7 +90,7 @@
                                     <th scope="col">Reason</th>
                                     <th scope="col" class="text-center">Date</th>
                                     <th scope="col">Status</th>
-                                    @if (checkRole(auth(),'hr') || checkRole(auth(),'officer'))
+                                    @if (checkRole(auth(), 'hr') || checkRole(auth(), 'officer'))
                                         <th scope="col" data-toggle="tooltip" title="{{ textTooltip() }}">Approval</th>
                                     @endif
                                     <th scope="col">Action</th>
@@ -112,25 +113,30 @@
                                                 class="badge {{ statusClass($leaveApplication->is_approve_hr) }}">{{ statusText($leaveApplication->is_approve_hr) }}
                                                 Human Resources Manager</span><br>
                                         </td>
-                                        @if (checkRole(auth(),'hr') || checkRole(auth(),'officer'))
+                                        @if (checkRole(auth(), 'hr') || checkRole(auth(), 'officer'))
                                             <td>
                                                 <div class="btn-group btn-sm mb-1" role="group"
                                                     aria-label="Basic example">
                                                     <form action="/leave_application/{{ $leaveApplication->id }}/approve"
                                                         class="btn-group m-0 p-0" method="post">
                                                         @csrf
-                                                        <button id="btn-reject" type="submit" id="approve" name="submit"
-                                                            <?= checkIsHaveAccess(auth(), $leaveApplication) ? '': 'disabled';?>
-                                                            onclick="return confirm('Are you sure?')"
+                                                        <button id="btn-reject"
+                                                            onclick="sendLinkActionToModal('/leave_application/' +{{$leaveApplication->id }} +'/approve')"
+                                                            type="button" class="btn btn-primary rounded-start" data-bs-toggle="modal"
+                                                            data-bs-target="#approvalModal"
+                                                            <?= checkIsHaveAccess(auth(), $leaveApplication) ? '' : 'disabled' ?>
                                                             class="btn btn-sm btn-success rounded-start"><i
                                                                 class="bi bi-check-lg"></i></button>
                                                     </form>
                                                     <form action="/leave_application/{{ $leaveApplication->id }}/reject"
                                                         method="post" class="btn-group m-0 p-0">
                                                         @csrf
-                                                        <button name="submit" onclick="return confirm('Are you sure?')"
-                                                            <?= checkIsHaveAccess(auth(), $leaveApplication) ? '': 'disabled';?>
-                                                            type="submit" class="btn btn-sm btn-danger rounded-end"><i
+                                                        <button id="btn-reject"
+                                                            onclick="sendLinkActionToModal('/leave_application/' +{{$leaveApplication->id }} +'/reject')"
+                                                            type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                            data-bs-target="#approvalModal"
+                                                            <?= checkIsHaveAccess(auth(), $leaveApplication) ? '' : 'disabled' ?>
+                                                            class="btn btn-sm btn-danger rounded-end"><i
                                                                 class="bi bi-x"></i></button>
                                                     </form>
                                                 </div>

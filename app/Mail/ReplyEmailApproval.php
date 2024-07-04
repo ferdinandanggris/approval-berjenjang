@@ -54,7 +54,8 @@ class ReplyEmailApproval extends Mailable
             "tanggal_mulai" => $data['tanggal_mulai'] ?? '',
             "tanggal_selesai" => $data['tanggal_selesai'] ?? '',
             "status"    => $data['status'] ?? '',
-            "url_link" => $data['url_link'] ?? ''
+            "url_link" => $data['url_link'] ?? '',
+            "catatan" => $data['catatan'] ?? ''
         ];
     }
 
@@ -74,6 +75,10 @@ class ReplyEmailApproval extends Mailable
                 break;
         }
 
+        // Check if catatan is not empty
+        if ($data['catatan'] != "-" || $data['catatan'] != "" || $data['catatan'] != null) {
+            $body .= " dengan catatan : <b>" . $data['catatan'] . "</b>";
+        }
         return $body;
     }
 

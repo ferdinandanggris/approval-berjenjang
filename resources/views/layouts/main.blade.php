@@ -71,6 +71,10 @@
         $(function() {
             $('[data-toggle="tooltip"]').tooltip()
         })
+
+        function sendLinkActionToModal(action) {
+            document.getElementById('approval-form').action = action;
+        }
     </script>
     <div class="main mt-5 pt-3">
         <div class="container">
@@ -78,6 +82,7 @@
         </div>
     </div>
     @include('partials.footer')
+    @include('components.approval-modal')
 
     <!-- Optional JavaScript; choose one of the two! -->
 

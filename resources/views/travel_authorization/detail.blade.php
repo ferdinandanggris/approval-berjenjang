@@ -62,6 +62,11 @@
                                     </p>
                                     <span
                                         class="badge {{ roleBadgeColor($travelAuthorization->officer->role ?? 'officer') }} text-uppercase">{{ $travelAuthorization->officer->role ?? 'officer' }}</span>
+                                    @if ($travelAuthorization->is_approve_officer > 0)
+                                        <p class="my-0 text-muted">
+                                            Catatan : {{ $travelAuthorization->officer_reason }}
+                                        </p>
+                                    @endif
                                 </div>
                                 <div class="">
                                     <span
@@ -80,6 +85,11 @@
                                     </p>
                                     <span
                                         class="badge {{ roleBadgeColor($travelAuthorization->hr->role ?? 'hr') }} text-uppercase">{{ $travelAuthorization->hr->role ?? 'hr' }}</span>
+                                    @if ($travelAuthorization->is_approve_hr > 0)
+                                        <p class="my-0 text-muted">
+                                            Catatan : {{ $travelAuthorization->hr_reason }}
+                                        </p>
+                                    @endif
                                 </div>
                                 <div class="">
                                     <span
@@ -99,6 +109,11 @@
                                     </p>
                                     <span
                                         class="badge {{ roleBadgeColor($travelAuthorization->finance->role ?? 'finance') }} text-uppercase">{{ $travelAuthorization->finance->role ?? 'finance' }}</span>
+                                    @if ($travelAuthorization->is_approve_finance > 0)
+                                        <p class="my-0 text-muted">
+                                            Catatan : {{ $travelAuthorization->finance_reason }}
+                                        </p>
+                                    @endif
                                 </div>
                                 <div class="">
                                     <span
@@ -113,19 +128,24 @@
     </div>
     <div class="d-flex justify-content-end mt-2">
         <a href="/travel_authorization" class="btn btn-secondary">Kembali</a>
-        @if (checkRole(auth(),'hr') || checkRole(auth(),'officer') || checkRole(auth(),'finance'))
-        <form action="/travel_authorization/{{ $travelAuthorization->id }}/approve" class="mx-1 my-0 p-0" method="post">
-            @csrf
-            <button id="btn-reject" type="submit" id="approve" name="submit"
-                <?= checkIsHaveAccess(auth(), $travelAuthorization) ? '' : 'disabled' ?>
-                onclick="return confirm('Are you sure?')" class="btn btn-success rounded-start">Approve</i></button>
-        </form>
-        <form action="/travel_authorization/{{ $travelAuthorization->id }}/reject" method="post" class=" m-0 p-0">
-            @csrf
-            <button name="submit" onclick="return confirm('Are you sure?')"
-                <?= checkIsHaveAccess(auth(), $travelAuthorization) ? '' : 'disabled' ?> type="submit"
-                class="btn btn-danger rounded-end">Decline</button>
-        </form>
+        @if (checkRole(auth(), 'hr') || checkRole(auth(), 'officer') || checkRole(auth(), 'finance'))
+            <form action="/travel_authorization/{{ $travelAuthorization->id }}/approve" class="m-0 p-0" method="post">
+                @csrf
+                <button
+                    onclick="sendLinkActionToModal('/travel_authorization/' +{{ $travelAuthorization->id }} +'/approve')"
+                    type="button" class="mx-1 btn btn-success rounded-start" data-bs-toggle="modal"
+                    data-bs-target="#approvalModal"
+                    <?= checkIsHaveAccess(auth(), $travelAuthorization) ? '' : 'disabled' ?>>
+                    Approve
+                </button>
+            </form>
+            <form action="/travel_authorization/{{ $travelAuthorization->id }}/reject" method="post" class="m-0 p-0">
+                @csrf
+                <button
+                    onclick="sendLinkActionToModal('/travel_authorization/' +{{ $travelAuthorization->id }} +'/reject')"
+                    type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#approvalModal"
+                    <?= checkIsHaveAccess(auth(), $travelAuthorization) ? '' : 'disabled' ?>>Decline</button>
+            </form>
         @endif
     </div>
 @endsection
